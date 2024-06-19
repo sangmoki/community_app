@@ -20,6 +20,7 @@ class SplashActivity : AppCompatActivity() {
             insets
         }
 
+        // 3초 후 IntroActivity로 이동
         Handler().postDelayed({
             startActivity(Intent(this, IntroActivity::class.java))
             finish()
