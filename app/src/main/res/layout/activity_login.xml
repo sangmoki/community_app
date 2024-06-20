@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical"
     tools:context=".auth.LoginActivity">
 
@@ -14,10 +15,11 @@
         android:layout_height="200dp">
 
         <TextView
+            android:layout_gravity="center"
             android:text="로그인"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="25sp"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="50dp" />
@@ -32,6 +34,9 @@
 
         <EditText
             android:hint="email"
+            android:textColorHint="#808080"
+            android:textColor="@color/black"
+            android:inputType="textEmailAddress"
             style="@style/AuthEditText"
             android:layout_width="match_parent"
             android:layout_height="50dp" />
@@ -42,6 +47,30 @@
             android:layout_marginRight="10dp"
             android:layout_width="match_parent"
             android:layout_height="0.5dp" />
+
+        <EditText
+            android:textColor="@color/black"
+            android:hint="password"
+            android:inputType="textPassword"
+            android:textColorHint="#808080"
+            style="@style/AuthEditText"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <LinearLayout
+            android:background="#999999"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp" />
+
+        <Button
+            android:layout_margin="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="로그인하기"
+            android:textColor="@color/black"
+            android:background="@drawable/radious_yellow" />
     </LinearLayout>
 
 </LinearLayout>
