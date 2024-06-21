@@ -9,14 +9,20 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.databinding.DataBindingUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.sangmoki.community_app.R
+import com.sangmoki.community_app.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
 
+    // firebase 인증 객체 생성
     private lateinit var auth: FirebaseAuth
+
+    // bidning 객체 생성
+    private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,17 +34,16 @@ class LoginActivity : AppCompatActivity() {
             insets
         }
 
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
+
         auth = Firebase.auth
         val currentUser = auth.currentUser
 
-        // 로그인 버튼 객체 생성
-        val loginBtn = findViewById<TextView>(R.id.loginBtn)
-
         // 로그인 버튼 클릭 이벤트
-        loginBtn.setOnClickListener {
+        binding.loginBtn.setOnClickListener {
 
-            val email = findViewById<TextView>(R.id.emailText).text.toString()
-            val password = findViewById<TextView>(R.id.passwordText).text.toString()
+            val email = binding.emailText.text.toString()
+            val password = binding.passwordText.text.toString()
 
             // firebase 로그인 시도 이벤트
             auth.signInWithEmailAndPassword(email, password)
