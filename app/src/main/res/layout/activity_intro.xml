@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content">
 
                 <Button
-                    android:id="@+id/loginBtn"
+                    android:id="@+id/loginActivityBtn"
                     android:background="@drawable/radious_basic"
                     android:textColor="@color/black"
                     android:text="로그인"
@@ -46,7 +46,7 @@
                     android:layout_height="60dp" />
 
                 <Button
-                    android:id="@+id/joinBtn"
+                    android:id="@+id/joinActivityBtn"
                     android:background="@drawable/radious_basic"
                     android:textColor="@color/black"
                     android:text="회원가입"
@@ -57,7 +57,7 @@
                     android:layout_height="60dp" />
 
                 <Button
-                    android:id="@+id/guestBtn"
+                    android:id="@+id/guestActivityBtn"
                     android:background="@drawable/radious_basic"
                     android:textColor="@color/black"
                     android:text="비회원 로그인"

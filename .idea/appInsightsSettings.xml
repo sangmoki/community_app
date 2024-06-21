@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.sangmoki.community_app" />
+                  <option name="mobileSdkAppId" value="1:102588914181:android:d3fa4284f87f27485ada6c" />
+                  <option name="projectId" value="community-app-eb66d" />
+                  <option name="projectNumber" value="102588914181" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

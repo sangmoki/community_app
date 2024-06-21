@@ -23,19 +23,19 @@ class IntroActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_intro)
 
         // 로그인 버튼 클릭 이벤트
-        binding.loginBtn.setOnClickListener {
+        binding.loginActivityBtn.setOnClickListener {
             var intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
         }
         
         // 회원가입 버튼 클릭 이벤트
-        binding.joinBtn.setOnClickListener {
+        binding.joinActivityBtn.setOnClickListener {
             var intent = Intent(this, JoinActivity::class.java)
             startActivity(intent)
         }
         
         // 비회원 로그인 버튼 클릭 이벤트
-        binding.guestBtn.setOnClickListener {
+        binding.guestActivityBtn.setOnClickListener {
             var intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }

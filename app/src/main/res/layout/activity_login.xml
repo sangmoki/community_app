@@ -15,6 +15,7 @@
         android:layout_height="200dp">
 
         <TextView
+            android:id="@+id/loginBtn"
             android:layout_gravity="center"
             android:text="로그인"
             android:textColor="@color/black"
@@ -33,6 +34,7 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:id="@+id/emailText"
             android:hint="이메일"
             android:textColorHint="#808080"
             android:textColor="@color/black"
@@ -49,6 +51,7 @@
             android:layout_height="0.5dp" />
 
         <EditText
+            android:id="@+id/passwordText"
             android:textColor="@color/black"
             android:hint="비밀번호"
             android:inputType="textPassword"
