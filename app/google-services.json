@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "102588914181",
+    "project_id": "community-app-eb66d",
+    "storage_bucket": "community-app-eb66d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102588914181:android:d3fa4284f87f27485ada6c",
+        "android_client_info": {
+          "package_name": "com.sangmoki.community_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ7TXvjfkWarlj4BoZHyAvmnRuEjd9a08"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
