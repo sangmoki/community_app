@@ -94,25 +94,28 @@ class JoinActivity : AppCompatActivity() {
                 isValid = false
             }
 
-            // firebase 회원가입 시도 이벤트
-            auth.createUserWithEmailAndPassword(email, password1)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful) {
-                        Log.d("회원가입 시도 =======>", "회원가입 성공 !")
-                        Toast.makeText(
-                            baseContext,
-                            "회원가입 성공 !",
-                            Toast.LENGTH_SHORT,
-                        ).show()
-                    } else {
-                        Log.w("회원가입 시도 =======>", "회원가입 실패 !")
-                        Toast.makeText(
-                            baseContext,
-                            "회원가입 실패 !",
-                            Toast.LENGTH_SHORT,
-                        ).show()
+            if (isValid) {
+                // firebase 회원가입 시도 이벤트
+                auth.createUserWithEmailAndPassword(email, password1)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            Log.d("회원가입 시도 =======>", "회원가입 성공 !")
+                            Toast.makeText(
+                                baseContext,
+                                "회원가입 성공 !",
+                                Toast.LENGTH_SHORT,
+                            ).show()
+                        } else {
+                            Log.w("회원가입 시도 =======>", "회원가입 실패 !")
+                            Toast.makeText(
+                                baseContext,
+                                "회원가입 실패 !",
+                                Toast.LENGTH_SHORT,
+                            ).show()
+                        }
                     }
-                }
+            }
+
         }
     }
 }
