@@ -1,5 +1,6 @@
 package com.sangmoki.community_app.auth
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -13,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.sangmoki.community_app.MainActivity
 import com.sangmoki.community_app.R
 import com.sangmoki.community_app.databinding.ActivityLoginBinding
 
@@ -55,6 +57,10 @@ class LoginActivity : AppCompatActivity() {
                             "로그인 성공!",
                             Toast.LENGTH_SHORT,
                         ).show()
+                        
+                        // 로그인 성공 시 메인 액티비티로 이동
+                        val intent = Intent(this, MainActivity::class.java)
+                        startActivity(intent)
                     } else {
                         Log.w("로그인 시도 =======>>>", "로그인 실패 !")
                         Toast.makeText(
