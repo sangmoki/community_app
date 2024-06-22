@@ -36,10 +36,63 @@ class JoinActivity : AppCompatActivity() {
 
         // 회원가입 버튼 클릭 이벤트
         binding.joinBtn.setOnClickListener {
-            
+
+            var isValid = true;
+
             val email = binding.emailText.text.toString()
             val password1 = binding.passwordText1.text.toString()
             val password2 = binding.passwordText2.text.toString()
+
+            // 값이 비어있는지 유효성 검사
+            if (email.isEmpty()) {
+                Toast.makeText(
+                    baseContext,
+                    "이메일을 입력해주세요.",
+                    Toast.LENGTH_SHORT,
+                ).show()
+
+                isValid = false
+            }
+
+            if (password1.isEmpty()) {
+                Toast.makeText(
+                    baseContext,
+                    "비밀번호를 입력해주세요.",
+                    Toast.LENGTH_SHORT,
+                ).show()
+
+                isValid = false
+            }
+
+            if (password2.isEmpty()) {
+                Toast.makeText(
+                    baseContext,
+                    "비밀번호를 한번 더 입력해주세요.",
+                    Toast.LENGTH_SHORT,
+                ).show()
+
+                isValid = false
+            }
+
+            if (password1 != password2) {
+                Toast.makeText(
+                    baseContext,
+                    "비밀번호가 일치하지 않습니다.",
+                    Toast.LENGTH_SHORT,
+                ).show()
+
+                isValid = false
+            }
+
+            if (password1.length < 6) {
+                Toast.makeText(
+                    baseContext,
+                    "비밀번호는 6자리 이상이어야 합니다.",
+                    Toast.LENGTH_SHORT,
+                ).show()
+
+                isValid = false
+            }
 
             // firebase 회원가입 시도 이벤트
             auth.createUserWithEmailAndPassword(email, password1)
