@@ -52,6 +52,12 @@ class IntroActivity : AppCompatActivity() {
             auth.signInAnonymously()
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
+
+                        // 익명 로그인 시도 성공 시 스택 제거 후 메인 액티비티로 이동
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+
                         Log.d("익명 로그인 시도 ======>>", "익명 로그인 성공 !")
                         Toast.makeText(
                             baseContext,
