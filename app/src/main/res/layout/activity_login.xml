@@ -17,7 +17,6 @@
             android:layout_height="200dp">
 
             <TextView
-                android:id="@+id/loginBtn"
                 android:layout_gravity="center"
                 android:text="로그인"
                 android:textColor="@color/black"
@@ -70,6 +69,7 @@
                 android:layout_height="0.5dp" />
 
             <Button
+                android:id="@+id/loginBtn"
                 android:layout_margin="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
