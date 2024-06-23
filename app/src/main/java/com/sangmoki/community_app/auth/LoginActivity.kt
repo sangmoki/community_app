@@ -60,7 +60,10 @@ class LoginActivity : AppCompatActivity() {
                         
                         // 로그인 성공 시 메인 액티비티로 이동
                         val intent = Intent(this, MainActivity::class.java)
+                        // 로그인 성공 시 이전 액티비티 스택을 모두 제거
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent)
+                        
                     } else {
                         Log.w("로그인 시도 =======>>>", "로그인 실패 !")
                         Toast.makeText(
