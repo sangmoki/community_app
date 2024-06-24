@@ -29,14 +29,14 @@ class MainActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
 
         // 로그아웃 버튼 클릭 이벤트
-        findViewById<Button>(R.id.logoutBtn).setOnClickListener {
+        // findViewById<Button>(R.id.logoutBtn).setOnClickListener {
             // 로그아웃 이벤트
-            auth.signOut()
+        //    auth.signOut()
 
             // 스택 제거 후 인트로 화면으로 이동
-            val intent = Intent(this, IntroActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-        }
+        //    val intent = Intent(this, IntroActivity::class.java)
+        //    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        //    startActivity(intent)
+        // }
     }
 }
