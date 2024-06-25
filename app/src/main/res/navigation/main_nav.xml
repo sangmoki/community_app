@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_storeFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_storeFragment_to_bookmarkFragment"
+            app:destination="@id/bookmarkFragment" />
     </fragment>
     <fragment
         android:id="@+id/talkFragment"
@@ -70,6 +73,9 @@
         <action
             android:id="@+id/action_talkFragment_to_tipFragment"
             app:destination="@id/tipFragment" />
+        <action
+            android:id="@+id/action_talkFragment_to_bookmarkFragment"
+            app:destination="@id/bookmarkFragment" />
     </fragment>
     <fragment
         android:id="@+id/tipFragment"
@@ -85,5 +91,8 @@
         <action
             android:id="@+id/action_tipFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_tipFragment_to_storeFragment"
+            app:destination="@id/storeFragment" />
     </fragment>
 </navigation>
