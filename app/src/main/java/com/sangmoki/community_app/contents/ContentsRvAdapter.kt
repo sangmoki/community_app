@@ -3,6 +3,7 @@ package com.sangmoki.community_app.contents
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.sangmoki.community_app.R
 
@@ -22,6 +23,8 @@ class ContentsRvAdapter(val items: ArrayList<ContentsModel>) : RecyclerView.Adap
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItems(item: ContentsModel) {
+            val title = itemView.findViewById<TextView>(R.id.title)
+            title.text = item.title
 
         }
     }
