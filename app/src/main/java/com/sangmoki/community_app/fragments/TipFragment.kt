@@ -1,5 +1,6 @@
 package com.sangmoki.community_app.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.sangmoki.community_app.R
+import com.sangmoki.community_app.contents.ContentsActivity
 import com.sangmoki.community_app.databinding.FragmentStoreBinding
 import com.sangmoki.community_app.databinding.FragmentTipBinding
 
@@ -27,6 +29,13 @@ class TipFragment : Fragment() {
 
         // DataBinding 설정
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_tip, container, false)
+
+        // category 클릭 이벤트
+        binding.categoryAll.setOnClickListener {
+            val intent = Intent(context, ContentsActivity::class.java)
+            startActivity(intent)
+        }
+
 
         // Home 버튼 클릭 이벤트
         binding.homeTap.setOnClickListener {
