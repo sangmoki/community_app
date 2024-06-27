@@ -49,6 +49,8 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics")
     // firebase auth
     implementation("com.google.firebase:firebase-auth-ktx")
+    // glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
