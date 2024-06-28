@@ -61,7 +61,6 @@ class ContentsActivity : AppCompatActivity() {
 //            ContentsModel("스팸 부대 국수 황금레시피", "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F123LP%2Fbtq65qy4hAd%2F6dgpC13wgrdsnHigepoVT1%2Fimg.png", "https://philosopher-chan.tistory.com/1240?category=941578")
 //        )
 
-
         // RecyclerView 레이아웃 객체 생성
         val rv: RecyclerView = findViewById(R.id.rv)
 
@@ -83,6 +82,9 @@ class ContentsActivity : AppCompatActivity() {
 //        items.add(ContentsModel("참치맛나니 초간단레시피", "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FFtY3t%2Fbtq65q6P4Zr%2FWe64GM8KzHAlGE3xQ2nDjk%2Fimg.png", "https://philosopher-chan.tistory.com/1248?category=941578"))
 //        items.add(ContentsModel("간장볶음면 마성의레시피", "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FOtaMq%2Fbtq67OMpk4W%2FH1cd0mda3n2wNWgVL9Dqy0%2Fimg.png", "https://philosopher-chan.tistory.com/1249?category=941578"))
 
+        // 어댑터 연결
+        val rvAdapter = ContentsRvAdapter(baseContext, items)
+
         // realtime database에서 데이터 가져와 items에 담아주기
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -91,14 +93,15 @@ class ContentsActivity : AppCompatActivity() {
                     val item = data.getValue(ContentsModel::class.java)
                     items.add(item!!)
                 }
+                // 비동기로 데이터를 불러오기 때문에 Adapter 새로고침
+                rvAdapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
             }
         })
 
-        // 어댑터 연결
-        val rvAdapter = ContentsRvAdapter(baseContext, items)
+
         rv.adapter = rvAdapter
 
         rv.layoutManager = GridLayoutManager(this, 2)
