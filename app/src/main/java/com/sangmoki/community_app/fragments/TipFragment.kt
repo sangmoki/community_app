@@ -33,6 +33,49 @@ class TipFragment : Fragment() {
         // category 클릭 이벤트
         binding.categoryAll.setOnClickListener {
             val intent = Intent(context, ContentsActivity::class.java)
+            intent.putExtra("category", "all")
+            startActivity(intent)
+        }
+
+        binding.categoryCook.setOnClickListener {
+            val intent = Intent(context, ContentsActivity::class.java)
+            intent.putExtra("category", "cook")
+            startActivity(intent)
+        }
+
+        binding.categoryEconomy.setOnClickListener {
+            val intent = Intent(context, ContentsActivity::class.java)
+            intent.putExtra("category", "economy")
+            startActivity(intent)
+        }
+
+        binding.categoryOneRoom.setOnClickListener {
+            val intent = Intent(context, ContentsActivity::class.java)
+            intent.putExtra("category", "room")
+            startActivity(intent)
+        }
+
+        binding.categoryHobby.setOnClickListener {
+            val intent = Intent(context, ContentsActivity::class.java)
+            intent.putExtra("category", "hobby")
+            startActivity(intent)
+        }
+
+        binding.categoryInterior.setOnClickListener {
+            val intent = Intent(context, ContentsActivity::class.java)
+            intent.putExtra("category", "interior")
+            startActivity(intent)
+        }
+
+        binding.categoryLife.setOnClickListener {
+            val intent = Intent(context, ContentsActivity::class.java)
+            intent.putExtra("category", "life")
+            startActivity(intent)
+        }
+
+        binding.categoryElse.setOnClickListener {
+            val intent = Intent(context, ContentsActivity::class.java)
+            intent.putExtra("category", "else")
             startActivity(intent)
         }
 
