@@ -1,6 +1,8 @@
 package com.sangmoki.community_app.contents
 
 import android.os.Bundle
+import android.webkit.WebView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -17,5 +19,12 @@ class ContentsWebViewActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        // 받아온 url 객체 정의
+        val webUrl = intent.getStringExtra("webUrl")
+        // 웹뷰 객체 생성
+        val webView = findViewById<WebView>(R.id.webView)
+        // 웹뷰 설정
+        webView.loadUrl(webUrl.toString())
     }
 }

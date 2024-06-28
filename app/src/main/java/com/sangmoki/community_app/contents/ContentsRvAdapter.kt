@@ -11,12 +11,28 @@ import com.bumptech.glide.Glide
 import com.sangmoki.community_app.R
 
 class ContentsRvAdapter(val context: Context, val items: ArrayList<ContentsModel>) : RecyclerView.Adapter<ContentsRvAdapter.ViewHolder>() {
+
+    // 클릭 이벤트 인터페이스 정의
+    interface ItemClick {
+        fun onClick(view: View, position: Int)
+    }
+
+    var itemClick: ItemClick? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentsRvAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.contents_rv_item, parent, false)
         return ViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: ContentsRvAdapter.ViewHolder, position: Int) {
+
+        // 아이템 클릭 이벤트 정의
+        if(itemClick != null) {
+            holder.itemView.setOnClickListener { v ->
+                itemClick?.onClick(v, position)
+            }
+        }
+
         holder.bindItems(items[position])
     }
 

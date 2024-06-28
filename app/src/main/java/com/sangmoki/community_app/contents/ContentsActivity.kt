@@ -1,6 +1,9 @@
 package com.sangmoki.community_app.contents
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -47,5 +50,17 @@ class ContentsActivity : AppCompatActivity() {
         rv.adapter = rvAdapter
 
         rv.layoutManager = GridLayoutManager(this, 2)
+
+        // 아이템 클릭 이벤트 - Adapter에서 정의한 클릭 이벤트 interface 상속
+        rvAdapter.itemClick = object : ContentsRvAdapter.ItemClick {
+            override fun onClick(view: View, position: Int) {
+
+                // 웹뷰 띄워주기
+                val intent = Intent(this@ContentsActivity, ContentsWebViewActivity::class.java)
+                // webUrl 전달
+                intent.putExtra("webUrl", items[position].webUrl)
+                startActivity(intent)
+            }
+        }
     }
 }
