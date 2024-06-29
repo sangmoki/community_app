@@ -3,7 +3,7 @@ package com.sangmoki.community_app.util
 import com.google.firebase.auth.FirebaseAuth
 
 // 범용적으로 사용하기 위해 FirebaseAuth 클래스 생성
-class FirebaseAuth {
+class FBAuth {
     companion object {
         // Firebase 인증 객체
         private lateinit var auth: FirebaseAuth
