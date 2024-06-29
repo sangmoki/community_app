@@ -11,8 +11,10 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sangmoki.community_app.R
+import com.sangmoki.community_app.util.FBAuth
+import com.sangmoki.community_app.util.FBRef
 
-class ContentsRvAdapter(val context: Context, val items: ArrayList<ContentsModel>) : RecyclerView.Adapter<ContentsRvAdapter.ViewHolder>() {
+class ContentsRvAdapter(val context: Context, val items: ArrayList<ContentsModel>, val itemKeyList: ArrayList<String>) : RecyclerView.Adapter<ContentsRvAdapter.ViewHolder>() {
 
     // 클릭 이벤트 인터페이스 정의 (기존 방식)
 //    interface ItemClick {
@@ -35,7 +37,7 @@ class ContentsRvAdapter(val context: Context, val items: ArrayList<ContentsModel
 //            }
 //        }
 
-        holder.bindItems(items[position])
+        holder.bindItems(items[position], itemKeyList[position])
     }
 
     override fun getItemCount(): Int {
@@ -43,14 +45,10 @@ class ContentsRvAdapter(val context: Context, val items: ArrayList<ContentsModel
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindItems(item: ContentsModel) {
+        fun bindItems(item: ContentsModel, itemKey: String) {
             val title = itemView.findViewById<TextView>(R.id.title)
             val imgUrl = itemView.findViewById<ImageView>(R.id.imageUrl)
-
-            // itemView 클릭 이벤트 정의
-            itemView.setOnClickListener {
-                itemView.context.startActivity(Intent(context, ContentsWebViewActivity::class.java).putExtra("webUrl", item.webUrl))
-            }
+            val bookmark = itemView.findViewById<ImageView>(R.id.bookmark)
 
             // title에 item의 title 맵핑해준다.
             title.text = item.title
@@ -61,6 +59,19 @@ class ContentsRvAdapter(val context: Context, val items: ArrayList<ContentsModel
                 .load(item.imgUrl)
                 // imgUrl에 이미지를 넣어준다.
                 .into(imgUrl)
+
+            // itemView 클릭 이벤트 정의
+            itemView.setOnClickListener {
+                itemView.context.startActivity(Intent(context, ContentsWebViewActivity::class.java).putExtra("webUrl", item.webUrl))
+            }
+
+            // 북마크 클릭 이벤트 정의
+            bookmark.setOnClickListener {
+                // 북마크를 클릭하면 uid 하위에 itemKey를 저장한다. 그럼 각 uid 별로 북마크 데이터가 저장된다.
+                FBRef.bookmarkRef.child(FBAuth.getUid()).child(itemKey).setValue("test")
+            }
+
+
 
         }
     }
