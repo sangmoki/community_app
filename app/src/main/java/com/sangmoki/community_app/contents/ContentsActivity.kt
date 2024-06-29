@@ -38,26 +38,28 @@ class ContentsActivity : AppCompatActivity() {
         // Firebase 데이터베이스 객체 생성
         val database = Firebase.database
 
-        val category = intent.getStringExtra("category")
+        myRef = database.getReference("contents")
+
+//        val category = intent.getStringExtra("category")
 
         // 카테고리별 데이터 가져오기
-        if (category == "all") {
-            myRef = database.getReference("all")
-        } else if (category == "cook") {
-            myRef = database.getReference("cook")
-        } else if (category == "economy") {
-            myRef = database.getReference("economy")
-        } else if (category == "room") {
-            myRef = database.getReference("room")
-        } else if (category == "hobby") {
-            myRef = database.getReference("hobby")
-        } else if (category == "interior") {
-            myRef = database.getReference("interior")
-        } else if (category == "life") {
-            myRef = database.getReference("life")
-        } else {
-            myRef = database.getReference("else")
-        }
+//        if (category == "all") {
+//            myRef = database.getReference("all")
+//        } else if (category == "cook") {
+//            myRef = database.getReference("cook")
+//        } else if (category == "economy") {
+//            myRef = database.getReference("economy")
+//        } else if (category == "room") {
+//            myRef = database.getReference("room")
+//        } else if (category == "hobby") {
+//            myRef = database.getReference("hobby")
+//        } else if (category == "interior") {
+//            myRef = database.getReference("interior")
+//        } else if (category == "life") {
+//            myRef = database.getReference("life")
+//        } else {
+//            myRef = database.getReference("else")
+//        }
 
         // 데이터 삽입
 //        myRef.push().setValue(
@@ -130,15 +132,15 @@ class ContentsActivity : AppCompatActivity() {
         rv.layoutManager = GridLayoutManager(this, 2)
 
         // 아이템 클릭 이벤트 - Adapter에서 정의한 클릭 이벤트 interface 상속
-        rvAdapter.itemClick = object : ContentsRvAdapter.ItemClick {
-            override fun onClick(view: View, position: Int) {
-
-                // 웹뷰 띄워주기
-                val intent = Intent(this@ContentsActivity, ContentsWebViewActivity::class.java)
-                // webUrl 전달
-                intent.putExtra("webUrl", items[position].webUrl)
-                startActivity(intent)
-            }
-        }
+//        rvAdapter.itemClick = object : ContentsRvAdapter.ItemClick {
+//            override fun onClick(view: View, position: Int) {
+//
+//                // 웹뷰 띄워주기
+//                val intent = Intent(this@ContentsActivity, ContentsWebViewActivity::class.java)
+//                // webUrl 전달
+//                intent.putExtra("webUrl", items[position].webUrl)
+//                startActivity(intent)
+//            }
+//        }
     }
 }
