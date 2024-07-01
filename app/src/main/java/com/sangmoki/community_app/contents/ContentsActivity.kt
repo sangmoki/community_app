@@ -63,7 +63,7 @@ class ContentsActivity : AppCompatActivity() {
 //        } else if (category == "hobby") {
 //            myRef = database.getReference("hobby")
 //        } else if (category == "interior") {
-//            myRef = database.getReference("interior")
+//            myRef = database.getReference("interior")-
 //        } else if (category == "life") {
 //            myRef = database.getReference("life")
 //        } else {
@@ -95,8 +95,7 @@ class ContentsActivity : AppCompatActivity() {
 //            ContentsModel("스팸 부대 국수 황금레시피", "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F123LP%2Fbtq65qy4hAd%2F6dgpC13wgrdsnHigepoVT1%2Fimg.png", "https://philosopher-chan.tistory.com/1240?category=941578")
 //        )
 
-        // RecyclerView 레이아웃 객체 생성
-        val rv: RecyclerView = findViewById(R.id.rv)
+
 
         // 아이템 목록
         val items = ArrayList<ContentsModel>()
@@ -105,26 +104,23 @@ class ContentsActivity : AppCompatActivity() {
         rvAdapter = ContentsRvAdapter(baseContext, items, bookmarkIdList, itemKeyList)
 
         // realtime database에서 데이터 가져와 items에 담아주기
-        myRef.addValueEventListener(object : ValueEventListener {
+        val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-
                 for (data in dataSnapshot.children) {
-                    // 데이터를 ContentsModel 형태로 가져오기
                     val item = data.getValue(ContentsModel::class.java)
-
-                    // 아이템 리스트 목록에 추가
                     items.add(item!!)
-
-                    // 아이템 목록 키 값 저장 -> 북마크 저장을 위해 key값 저장
                     itemKeyList.add(data.key.toString())
                 }
-                // 비동기로 데이터를 불러오기 때문에 Adapter 새로고침
                 rvAdapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
             }
-        })
+        }
+        myRef.addValueEventListener(postListener)
+
+        // RecyclerView 레이아웃 객체 생성
+        val rv: RecyclerView = findViewById(R.id.rv)
 
         // 어댑터 연결
         rv.adapter = rvAdapter
@@ -136,15 +132,23 @@ class ContentsActivity : AppCompatActivity() {
     // 북마크 데이터 불러오기
     private fun getBookmarkData() {
 
-        FBRef.bookmarkRef.child(FBAuth.getUid()).addValueEventListener(object : ValueEventListener {
+        val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                // 북마크 데이터를 담기 전에 초기화
+                bookmarkIdList.clear()
+
+                // 북마크 데이터를 가져와 bookmarkIdList에 저장
                 for (data in dataSnapshot.children) {
                     bookmarkIdList.add(data.key.toString())
                 }
+                rvAdapter.notifyDataSetChanged()
             }
 
             override fun onCancelled(error: DatabaseError) {
             }
-        })
+        }
+
+        FBRef.bookmarkRef.child(FBAuth.getUid()).addValueEventListener(postListener)
     }
 }

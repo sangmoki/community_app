@@ -51,6 +51,14 @@ class ContentsRvAdapter(val context: Context,
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bindItems(item: ContentsModel, itemKey: String) {
+
+            // itemView 클릭 이벤트 정의
+            itemView.setOnClickListener {
+                itemView.context
+                    .startActivity(Intent(context, ContentsWebViewActivity::class.java)
+                    .putExtra("webUrl", item.webUrl))
+            }
+
             val title = itemView.findViewById<TextView>(R.id.title)
             val imgUrl = itemView.findViewById<ImageView>(R.id.imageUrl)
             val bookmark = itemView.findViewById<ImageView>(R.id.bookmark)
@@ -58,16 +66,19 @@ class ContentsRvAdapter(val context: Context,
             // title에 item의 title 맵핑해준다.
             title.text = item.title
 
-            // itemView 클릭 이벤트 정의
-            itemView.setOnClickListener {
-                itemView.context.startActivity(Intent(context, ContentsWebViewActivity::class.java).putExtra("webUrl", item.webUrl))
+            // 북마크 아이콘 색상 변경
+            if (bookmarkIdList.contains(itemKey)) {
+                bookmark.setImageResource(R.drawable.bookmark_color)
+            } else {
+                bookmark.setImageResource(R.drawable.bookmark_white)
             }
 
             // 북마크 클릭 이벤트 정의
             bookmark.setOnClickListener {
 
-                // 북마크가 이미 true 일 때 북마크를 삭제한다.
                 if (bookmarkIdList.contains(itemKey)) {
+
+                    // 북마크가 이미 true 일 때 북마크를 삭제한다.
                     FBRef.bookmarkRef
                         .child(FBAuth.getUid())
                         .child(itemKey)
@@ -79,6 +90,12 @@ class ContentsRvAdapter(val context: Context,
                         .child(itemKey)
                         .setValue(BookmarkModel(true))
                 }
+
+                Toast.makeText(
+                    context,
+                    bookmark.toString(),
+                    Toast.LENGTH_SHORT,
+                ).show()
             }
 
             // 글라이드 라이브러리를 통해
@@ -87,14 +104,6 @@ class ContentsRvAdapter(val context: Context,
                 .load(item.imgUrl)
                 // imgUrl에 이미지를 넣어준다.
                 .into(imgUrl)
-
-            if (bookmarkIdList.contains(itemKey)) {
-                bookmark.setImageResource(R.drawable.bookmark_color)
-            } else {
-                bookmark.setImageResource(R.drawable.bookmark_white)
-            }
-
-
 
         }
     }
