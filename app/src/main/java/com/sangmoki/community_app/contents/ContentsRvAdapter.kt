@@ -42,7 +42,7 @@ class ContentsRvAdapter(val context: Context,
 //            }
 //        }
 
-        holder.bindItems(items[position], itemKeyList[position], bookmarkIdList[position])
+        holder.bindItems(items[position], itemKeyList[position])
     }
 
     override fun getItemCount(): Int {
@@ -50,7 +50,7 @@ class ContentsRvAdapter(val context: Context,
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindItems(item: ContentsModel, itemKey: String, bookmarkId: String) {
+        fun bindItems(item: ContentsModel, itemKey: String) {
             val title = itemView.findViewById<TextView>(R.id.title)
             val imgUrl = itemView.findViewById<ImageView>(R.id.imageUrl)
             val bookmark = itemView.findViewById<ImageView>(R.id.bookmark)
@@ -65,7 +65,7 @@ class ContentsRvAdapter(val context: Context,
                 // imgUrl에 이미지를 넣어준다.
                 .into(imgUrl)
 
-            if (itemKeyList.contains(bookmarkId)) {
+            if (bookmarkIdList.contains(itemKey)) {
                 bookmark.setImageResource(R.drawable.bookmark_color)
             } else {
                 bookmark.setImageResource(R.drawable.bookmark_white)
