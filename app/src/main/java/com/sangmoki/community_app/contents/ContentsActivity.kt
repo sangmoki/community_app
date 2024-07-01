@@ -19,12 +19,20 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.sangmoki.community_app.R
+import com.sangmoki.community_app.util.FBAuth
 import com.sangmoki.community_app.util.FBRef
 
 class ContentsActivity : AppCompatActivity() {
 
     // DB 참조 객체 선언
     lateinit var myRef: DatabaseReference
+
+    // 어댑터 객체 선언
+    lateinit var rvAdapter: ContentsRvAdapter
+
+    // 콘텐츠 id를 가진 북마크 목록 객체 생성
+    val bookmarkIdList = mutableListOf<String>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,7 +102,7 @@ class ContentsActivity : AppCompatActivity() {
         val items = ArrayList<ContentsModel>()
         val itemKeyList = ArrayList<String>()
         // 어댑터 연결
-        val rvAdapter = ContentsRvAdapter(baseContext, items, itemKeyList)
+        rvAdapter = ContentsRvAdapter(baseContext, items, bookmarkIdList, itemKeyList)
 
         // realtime database에서 데이터 가져와 items에 담아주기
         myRef.addValueEventListener(object : ValueEventListener {
@@ -128,12 +136,13 @@ class ContentsActivity : AppCompatActivity() {
     // 북마크 데이터 불러오기
     private fun getBookmarkData() {
 
-        FBRef.bookmarkRef.addValueEventListener(object : ValueEventListener {
+        FBRef.bookmarkRef.child(FBAuth.getUid()).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 for (data in dataSnapshot.children) {
-                    Log.d("bookmark", data.toString())
+                    bookmarkIdList.add(data.key.toString())
                 }
+
             }
 
             override fun onCancelled(error: DatabaseError) {

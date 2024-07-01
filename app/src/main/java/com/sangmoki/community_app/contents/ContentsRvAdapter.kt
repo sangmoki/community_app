@@ -2,6 +2,7 @@ package com.sangmoki.community_app.contents
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,10 @@ import com.sangmoki.community_app.R
 import com.sangmoki.community_app.util.FBAuth
 import com.sangmoki.community_app.util.FBRef
 
-class ContentsRvAdapter(val context: Context, val items: ArrayList<ContentsModel>, val itemKeyList: ArrayList<String>) : RecyclerView.Adapter<ContentsRvAdapter.ViewHolder>() {
+class ContentsRvAdapter(val context: Context,
+                        val items: ArrayList<ContentsModel>,
+                        val bookmarkIdList: MutableList<String>,
+                        val itemKeyList: ArrayList<String>): RecyclerView.Adapter<ContentsRvAdapter.ViewHolder>() {
 
     // 클릭 이벤트 인터페이스 정의 (기존 방식)
 //    interface ItemClick {
@@ -25,6 +29,7 @@ class ContentsRvAdapter(val context: Context, val items: ArrayList<ContentsModel
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentsRvAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.contents_rv_item, parent, false)
+
         return ViewHolder(v)
     }
 
@@ -37,7 +42,7 @@ class ContentsRvAdapter(val context: Context, val items: ArrayList<ContentsModel
 //            }
 //        }
 
-        holder.bindItems(items[position], itemKeyList[position])
+        holder.bindItems(items[position], itemKeyList[position], bookmarkIdList[position])
     }
 
     override fun getItemCount(): Int {
@@ -45,7 +50,7 @@ class ContentsRvAdapter(val context: Context, val items: ArrayList<ContentsModel
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bindItems(item: ContentsModel, itemKey: String) {
+        fun bindItems(item: ContentsModel, itemKey: String, bookmarkId: String) {
             val title = itemView.findViewById<TextView>(R.id.title)
             val imgUrl = itemView.findViewById<ImageView>(R.id.imageUrl)
             val bookmark = itemView.findViewById<ImageView>(R.id.bookmark)
@@ -60,6 +65,12 @@ class ContentsRvAdapter(val context: Context, val items: ArrayList<ContentsModel
                 // imgUrl에 이미지를 넣어준다.
                 .into(imgUrl)
 
+            if (itemKeyList.contains(bookmarkId)) {
+                bookmark.setImageResource(R.drawable.bookmark_color)
+            } else {
+                bookmark.setImageResource(R.drawable.bookmark_white)
+            }
+
             // itemView 클릭 이벤트 정의
             itemView.setOnClickListener {
                 itemView.context.startActivity(Intent(context, ContentsWebViewActivity::class.java).putExtra("webUrl", item.webUrl))
@@ -68,7 +79,7 @@ class ContentsRvAdapter(val context: Context, val items: ArrayList<ContentsModel
             // 북마크 클릭 이벤트 정의
             bookmark.setOnClickListener {
                 // 북마크를 클릭하면 uid 하위에 itemKey를 저장한다. 그럼 각 uid 별로 북마크 데이터가 저장된다.
-                FBRef.bookmarkRef.child(FBAuth.getUid()).child(itemKey).setValue("test")
+                FBRef.bookmarkRef.child(FBAuth.getUid()).child(itemKey).setValue(BookmarkModel(true))
             }
 
 
