@@ -58,6 +58,29 @@ class ContentsRvAdapter(val context: Context,
             // title에 item의 title 맵핑해준다.
             title.text = item.title
 
+            // itemView 클릭 이벤트 정의
+            itemView.setOnClickListener {
+                itemView.context.startActivity(Intent(context, ContentsWebViewActivity::class.java).putExtra("webUrl", item.webUrl))
+            }
+
+            // 북마크 클릭 이벤트 정의
+            bookmark.setOnClickListener {
+
+                // 북마크가 이미 true 일 때 북마크를 삭제한다.
+                if (bookmarkIdList.contains(itemKey)) {
+                    FBRef.bookmarkRef
+                        .child(FBAuth.getUid())
+                        .child(itemKey)
+                        .removeValue()
+                } else {
+                    // 북마크를 클릭하면 uid 하위에 itemKey를 저장한다. 그럼 각 uid 별로 북마크 데이터가 저장된다.
+                    FBRef.bookmarkRef
+                        .child(FBAuth.getUid())
+                        .child(itemKey)
+                        .setValue(BookmarkModel(true))
+                }
+            }
+
             // 글라이드 라이브러리를 통해
             Glide.with(context)
                 // item의 imgUrl에
@@ -69,17 +92,6 @@ class ContentsRvAdapter(val context: Context,
                 bookmark.setImageResource(R.drawable.bookmark_color)
             } else {
                 bookmark.setImageResource(R.drawable.bookmark_white)
-            }
-
-            // itemView 클릭 이벤트 정의
-            itemView.setOnClickListener {
-                itemView.context.startActivity(Intent(context, ContentsWebViewActivity::class.java).putExtra("webUrl", item.webUrl))
-            }
-
-            // 북마크 클릭 이벤트 정의
-            bookmark.setOnClickListener {
-                // 북마크를 클릭하면 uid 하위에 itemKey를 저장한다. 그럼 각 uid 별로 북마크 데이터가 저장된다.
-                FBRef.bookmarkRef.child(FBAuth.getUid()).child(itemKey).setValue(BookmarkModel(true))
             }
 
 

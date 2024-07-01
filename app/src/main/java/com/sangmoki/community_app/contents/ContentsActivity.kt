@@ -138,11 +138,9 @@ class ContentsActivity : AppCompatActivity() {
 
         FBRef.bookmarkRef.child(FBAuth.getUid()).addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-
                 for (data in dataSnapshot.children) {
                     bookmarkIdList.add(data.key.toString())
                 }
-
             }
 
             override fun onCancelled(error: DatabaseError) {
