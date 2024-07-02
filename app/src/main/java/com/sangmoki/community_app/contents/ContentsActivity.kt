@@ -50,7 +50,7 @@ class ContentsActivity : AppCompatActivity() {
 
         // 카테고리별 데이터 가져오기
         if (category == "all") {
-            myRef = database.getReference("category").child("all")
+            myRef = database.getReference("category")
         } else if (category == "cook") {
             myRef = database.getReference("category").child("cook")
         } else if (category == "economy") {
@@ -68,31 +68,21 @@ class ContentsActivity : AppCompatActivity() {
         }
 
         // 데이터 삽입
-        myRef.push().setValue(
-            ContentsModel("밥솥 리코타치즈 황금레시피", "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FblYPPY%2Fbtq66v0S4wu%2FRmuhpkXUO4FOcrlOmVG4G1%2Fimg.png", "https://philosopher-chan.tistory.com/1235?category=941578")
-        )
-
-        myRef.push().setValue(
-            ContentsModel("황금노른자장 황금레시피", "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FznKK4%2Fbtq665AUWem%2FRUawPn5Wwb4cQ8BetEwN40%2Fimg.png", "https://philosopher-chan.tistory.com/1236?category=941578")
-        )
-
-        myRef.push().setValue(
-            ContentsModel("사골곰탕 파스타 황금레시피", "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fbtig9C%2Fbtq65UGxyWI%2FPRBIGUKJ4rjMkI7KTGrxtK%2Fimg.png", "https://philosopher-chan.tistory.com/1237?category=941578")
-        )
-
-        myRef.push().setValue(
-            ContentsModel("아웃백 투움바 파스타 황금레시피", "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FcOYyBM%2Fbtq67Or43WW%2F17lZ3tKajnNwGPSCLtfnE1%2Fimg.png", "https://philosopher-chan.tistory.com/1238?category=941578")
-        )
-
-        myRef.push().setValue(
-            ContentsModel("최애 당면 찜닭 황금레시피", "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2Fekn5wI%2Fbtq66UlN4bC%2F8NEzlyot7HT4PcjbdYAINk%2Fimg.png", "https://philosopher-chan.tistory.com/1239?category=941578")
-        )
-
-        myRef.push().setValue(
-            ContentsModel("스팸 부대 국수 황금레시피", "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F123LP%2Fbtq65qy4hAd%2F6dgpC13wgrdsnHigepoVT1%2Fimg.png", "https://philosopher-chan.tistory.com/1240?category=941578")
-        )
-
-
+//        myRef.push().setValue(
+//            ContentsModel("낚시", "https://i.namu.wiki/i/B8ylYQO0xscUZOXxZgRwuxJp1FsHOcX3gKGQ5dFBfyqGbX3jwX4Kt2ffAsOgJSVzzjr5PB1NJuhQvuuRYR4p_YRU-wyjNz8oLEpS4i5msT56EC78lArhEN-WV8qxXWItFMRLe5zyMuRHfxZlvU-cRg.webp", "https://namu.wiki/w/%EB%82%9A%EC%8B%9C")
+//        )
+//
+//        myRef.push().setValue(
+//            ContentsModel("독서", "https://i.namu.wiki/i/UeRMI0-zLQXVNS-oFnrlkT89A9iHJLuAE2l2KVj_8kumEEA1gi6ZXGvkRW6H2V9o8igzRsTy9tcjKV_CG9VOfKc1-hCOuWWu5vx1gNdVVMCBbDrjRpquJxflI14evt4dKQFEnJEQsijgI26GVHb61A.webp", "https://namu.wiki/w/%EC%B1%85")
+//        )
+//
+//        myRef.push().setValue(
+//            ContentsModel("여행", "https://images.unsplash.com/photo-1614094082869-cd4e4b2905c7?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Nnx8fGVufDB8fHx8fA%3D%3D", "https://namu.wiki/w/%EC%97%AC%ED%96%89")
+//        )
+//
+//        myRef.push().setValue(
+//            ContentsModel("탐험", "https://images.unsplash.com/photo-1554357475-accb8a88a330?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHx8fA%3D%3D", "https://namu.wiki/w/%EB%AA%A8%ED%97%98")
+//        )
 
         // 아이템 목록
         val items = ArrayList<ContentsModel>()
@@ -103,10 +93,17 @@ class ContentsActivity : AppCompatActivity() {
         // realtime database에서 데이터 가져와 items에 담아주기
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (data in dataSnapshot.children) {
-                    val item = data.getValue(ContentsModel::class.java)
-                    items.add(item!!)
-                    itemKeyList.add(data.key.toString())
+
+                if (category == "all") {
+                    val item = dataSnapshot.children
+                    Log.d("item", item.toString())
+//                        items.add(item!!)
+                } else {
+                    for (data in dataSnapshot.children) {
+                        val item = data.getValue(ContentsModel::class.java)
+                        items.add(item!!)
+                        itemKeyList.add(data.key.toString())
+                    }
                 }
                 rvAdapter.notifyDataSetChanged()
             }

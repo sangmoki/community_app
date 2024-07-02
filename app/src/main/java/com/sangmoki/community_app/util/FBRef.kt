@@ -13,7 +13,7 @@ class FBRef {
         // DB 참조 객체 선언
         private val database = Firebase.database
 
-        val categoryAll = database.getReference("all")
+        val categoryAll = database.getReference("category")
 
         val bookmarkRef = database.getReference("bookmark_list")
 
