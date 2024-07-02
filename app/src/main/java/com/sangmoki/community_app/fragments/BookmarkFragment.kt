@@ -15,6 +15,7 @@ import com.sangmoki.community_app.R
 import com.sangmoki.community_app.databinding.FragmentBookmarkBinding
 import com.sangmoki.community_app.databinding.FragmentStoreBinding
 import com.sangmoki.community_app.model.ContentsModel
+import com.sangmoki.community_app.util.FBAuth
 import com.sangmoki.community_app.util.FBRef
 
 
@@ -34,24 +35,10 @@ class BookmarkFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        // 전체 카테고리에 있는 컨텐츠 데이터 다 가져오기
-        // realtime database에서 데이터 가져와 items에 담아주기
-        val postListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                for (data in dataSnapshot.children) {
-                    Log.d(TAG, data.toString())
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-            }
-        }
-        FBRef.categoryAll.addValueEventListener(postListener)
-
-
-        // 사용자가 북마크한 정보를 다 가져온다.
-
-        // 전체 컨텐츠 중에서 사용자가 북마크한 정보만 보여준다.
+        // 전체 카테고리 데이터 가져오기
+        getCategoryData()
+        // 북마크한 데이터 가져오기
+        getBookmarkData()
 
         // DataBinding 설정
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bookmark, container, false)
@@ -78,4 +65,49 @@ class BookmarkFragment : Fragment() {
 
         return binding.root
     }
+
+    // 카테고리 정보 불러오기
+    private fun getCategoryData() {
+
+        // 전체 카테고리에 있는 컨텐츠 데이터 다 가져오기
+        // realtime database에서 데이터 가져와 items에 담아주기
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (type in dataSnapshot.children) {
+                    for (data in type.children) {
+                        val item = data.getValue(ContentsModel::class.java)
+                        Log.d("전체 카테고리 목록 =====>", item.toString())
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        }
+        FBRef.categoryAll.addValueEventListener(postListener)
+
+    }
+
+    // 사용자가 북마크한 정보를 다 가져온다.
+    private fun getBookmarkData() {
+
+        // 북마크한 데이터 목록 가져오기
+        // realtime database에서 데이터 가져와 items에 담아주기
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // 북마크 데이터를 가져와 bookmarkIdList에 저장
+                for (data in dataSnapshot.children) {
+                    Log.d("북마크한 데이터 목록 =====>", data.toString())
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+            }
+        }
+        // UID에 따른 북마크 데이터
+        FBRef.bookmarkRef.child(FBAuth.getUid()).addValueEventListener(postListener)
+
+    }
+
+    // 전체 컨텐츠 중에서 사용자가 북마크한 정보만 보여준다.
 }
