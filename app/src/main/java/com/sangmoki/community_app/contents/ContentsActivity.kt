@@ -122,7 +122,7 @@ class ContentsActivity : AppCompatActivity() {
         myRef.addValueEventListener(postListener)
 
         // RecyclerView 레이아웃 객체 생성
-        val rv: RecyclerView = findViewById(R.id.rv)
+        val rv: RecyclerView = findViewById(R.id.contents_rv)
 
         // 어댑터 연결
         rv.adapter = rvAdapter
