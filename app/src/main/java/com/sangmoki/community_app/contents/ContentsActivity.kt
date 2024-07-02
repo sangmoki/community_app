@@ -100,8 +100,7 @@ class ContentsActivity : AppCompatActivity() {
                         for (data in type.children) {
                             val item = data.getValue(ContentsModel::class.java)
                             items.add(item!!)
-                            // 순서를 랜덤하게 섞는다.
-                            items.shuffle()
+//                            items.shuffle()
                             itemKeyList.add(data.key.toString())
                         }
                     }

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sangmoki.community_app.R
@@ -92,12 +91,6 @@ class ContentsRvAdapter(val context: Context,
                         .child(itemKey)
                         .setValue(BookmarkModel(true))
                 }
-
-                Toast.makeText(
-                    context,
-                    bookmark.toString(),
-                    Toast.LENGTH_SHORT,
-                ).show()
             }
 
             // 글라이드 라이브러리를 통해

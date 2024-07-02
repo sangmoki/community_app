@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sangmoki.community_app.R
@@ -24,7 +23,6 @@ class BookmarkRvAdapter(val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.contents_rv_item, parent, false)
-
         return ViewHolder(v)
     }
 
@@ -65,7 +63,6 @@ class BookmarkRvAdapter(val context: Context,
             bookmark.setOnClickListener {
 
                 if (bookmarkIdList.contains(itemKey)) {
-
                     // 북마크가 이미 true 일 때 북마크를 삭제한다.
                     FBRef.bookmarkRef
                         .child(FBAuth.getUid())
@@ -78,12 +75,6 @@ class BookmarkRvAdapter(val context: Context,
                         .child(itemKey)
                         .setValue(BookmarkModel(true))
                 }
-
-                Toast.makeText(
-                    context,
-                    bookmark.toString(),
-                    Toast.LENGTH_SHORT,
-                ).show()
             }
 
             // 글라이드 라이브러리를 통해
