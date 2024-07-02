@@ -11,8 +11,9 @@ class FBRef {
     companion object {
 
         // DB 참조 객체 선언
-        lateinit var myRef: DatabaseReference
         private val database = Firebase.database
+
+        val categoryAll = database.getReference("all")
 
         val bookmarkRef = database.getReference("bookmark_list")
 

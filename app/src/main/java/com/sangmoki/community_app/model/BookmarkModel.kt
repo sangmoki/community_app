@@ -1,4 +1,4 @@
-package com.sangmoki.community_app.contents
+package com.sangmoki.community_app.model
 
 data class BookmarkModel (
 

@@ -26,6 +26,12 @@ class BookmarkFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        // 전체 카테고리에 있는 컨텐츠 데이터 다 가져오기
+
+        // 사용자가 북마크한 정보를 다 가져온다.
+
+        // 전체 컨텐츠 중에서 사용자가 북마크한 정보만 보여준다.
+
         // DataBinding 설정
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_bookmark, container, false)
 
