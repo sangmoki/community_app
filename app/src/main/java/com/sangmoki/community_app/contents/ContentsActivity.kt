@@ -1,7 +1,6 @@
 package com.sangmoki.community_app.contents
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -15,6 +14,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.sangmoki.community_app.R
+import com.sangmoki.community_app.adapter.ContentsRvAdapter
 import com.sangmoki.community_app.model.ContentsModel
 import com.sangmoki.community_app.util.FBAuth
 import com.sangmoki.community_app.util.FBRef
