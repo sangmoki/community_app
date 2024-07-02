@@ -1,4 +1,4 @@
-package com.sangmoki.community_app.contents
+package com.sangmoki.community_app.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.sangmoki.community_app.R
+import com.sangmoki.community_app.contents.ContentsWebViewActivity
 import com.sangmoki.community_app.model.BookmarkModel
 import com.sangmoki.community_app.model.ContentsModel
 import com.sangmoki.community_app.util.FBAuth
@@ -28,13 +29,13 @@ class ContentsRvAdapter(val context: Context,
 
 //    var itemClick: ItemClick? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContentsRvAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.contents_rv_item, parent, false)
 
         return ViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: ContentsRvAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         // 아이템 클릭 이벤트 정의 (기존 방식)
 //        if(itemClick != null) {
