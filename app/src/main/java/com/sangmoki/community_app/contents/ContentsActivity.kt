@@ -95,9 +95,17 @@ class ContentsActivity : AppCompatActivity() {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 if (category == "all") {
-                    val item = dataSnapshot.children
-                    Log.d("item", item.toString())
-//                        items.add(item!!)
+                    // 전체인 경우 모든 카테고리 데이터를 가져온다.
+                    for (type in dataSnapshot.children) {
+                        for (data in type.children) {
+                            val item = data.getValue(ContentsModel::class.java)
+                            items.add(item!!)
+                            // 순서를 랜덤하게 섞는다.
+                            items.shuffle()
+                            itemKeyList.add(data.key.toString())
+                        }
+                    }
+                    // all을 제외한 나머지 카테고리
                 } else {
                     for (data in dataSnapshot.children) {
                         val item = data.getValue(ContentsModel::class.java)
