@@ -13,9 +13,13 @@ class FBRef {
         // DB 참조 객체 선언
         private val database = Firebase.database
 
+        // 모든 카테고리 데이터를 가져오기 위한 참조 객체 선언
         val categoryAll = database.getReference("category")
 
+        // 북마크 데이터를 가져오기 위한 참조 객체 선언
         val bookmarkRef = database.getReference("bookmark_list")
 
+        // 게시판 데이터를 가져오기 위한 참조 객체 선언
+        val boardRef = database.getReference("board")
     }
 }
