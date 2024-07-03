@@ -1,5 +1,6 @@
 package com.sangmoki.community_app.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.sangmoki.community_app.R
+import com.sangmoki.community_app.board.BoardWriteActivity
 import com.sangmoki.community_app.databinding.FragmentTalkBinding
 
 class TalkFragment : Fragment() {
@@ -26,6 +28,11 @@ class TalkFragment : Fragment() {
 
         // DataBinding 설정
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_talk, container, false)
+
+        binding.writeBtn.setOnClickListener {
+            val intent = Intent(context, BoardWriteActivity::class.java)
+            startActivity(intent)
+        }
 
         // Home 버튼 클릭 이벤트
         binding.homeTap.setOnClickListener {

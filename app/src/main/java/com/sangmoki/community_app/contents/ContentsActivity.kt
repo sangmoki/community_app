@@ -30,7 +30,6 @@ class ContentsActivity : AppCompatActivity() {
     // 콘텐츠 id를 가진 북마크 목록 객체 생성
     val bookmarkIdList = mutableListOf<String>()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
