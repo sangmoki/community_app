@@ -15,6 +15,7 @@ import com.sangmoki.community_app.databinding.ActivityBoardWriteBinding
 import com.sangmoki.community_app.model.BoardModel
 import com.sangmoki.community_app.util.FBAuth
 import com.sangmoki.community_app.util.FBRef
+import com.sangmoki.community_app.util.Global
 
 class BoardWriteActivity : AppCompatActivity() {
 
@@ -38,13 +39,10 @@ class BoardWriteActivity : AppCompatActivity() {
             val title = binding.writeTitle.text.toString()
             val content = binding.writeContent.text.toString()
             
-            // 시간 데이터를 String으로 format하여 Long -> String 타입으로 변환
-            val time = String.format("%tF %tT", System.currentTimeMillis(), System.currentTimeMillis())
-
             // 게시판 데이터 저장
             FBRef.boardRef
                 .push()
-                .setValue(BoardModel(title, content, FBAuth.getUid(), time))
+                .setValue(BoardModel(title, content, FBAuth.getUid(), Global.getTime()))
 
         }
 
