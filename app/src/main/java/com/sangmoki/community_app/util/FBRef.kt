@@ -21,5 +21,6 @@ class FBRef {
 
         // 게시판 데이터를 가져오기 위한 참조 객체 선언
         val boardRef = database.getReference("board")
+
     }
 }

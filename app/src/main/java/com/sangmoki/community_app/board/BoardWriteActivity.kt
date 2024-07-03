@@ -2,6 +2,7 @@ package com.sangmoki.community_app.board
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -44,6 +45,11 @@ class BoardWriteActivity : AppCompatActivity() {
                 .push()
                 .setValue(BoardModel(title, content, FBAuth.getUid(), Global.getTime()))
 
+            // 게시글 작성 완료
+            Toast.makeText(this, "게시글 작성 완료", Toast.LENGTH_SHORT).show()
+
+            // 게시판 목록으로 이동
+            finish()
         }
 
     }
