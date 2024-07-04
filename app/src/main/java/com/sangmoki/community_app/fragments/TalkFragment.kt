@@ -25,12 +25,14 @@ class TalkFragment : Fragment() {
     // 바인딩 변수 선언
     private lateinit var binding: FragmentTalkBinding
 
-    //
+    // 게시판 ListView Adapter 객체 생성
     private lateinit var boardLvAdapter: BoardLvAdapter
 
     // 게시판 목록 변수 생성
-    val boardList = mutableListOf<BoardModel>()
+    private val boardList = mutableListOf<BoardModel>()
 
+    // 게시판 key 값 목록 변수 생성
+    private val boardKeyList = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,11 +55,20 @@ class TalkFragment : Fragment() {
             startActivity(intent)
         }
 
+        // 1. 액티비티 데이터 전달 및 이동 방법 - listView에 있는 데이터의 각각 객체 값 하나하나 액티비티로 전달하는 방법
+//        binding.boardListView.setOnItemClickListener { parent, view, position, id ->
+//            val intent = Intent(context, BoardDetailActivity::class.java)
+//            intent.putExtra("title", boardList[position].title)
+//            intent.putExtra("content", boardList[position].content)
+//            intent.putExtra("time", boardList[position].time)
+//            startActivity(intent)
+//        }
+
+        // 2. 액티비티 데이터 전달 및 이동 방법 - boardList[position]에 해당하는 데이터 key id 기반으로 데이터를 불러오는 방법
         binding.boardListView.setOnItemClickListener { parent, view, position, id ->
             val intent = Intent(context, BoardDetailActivity::class.java)
-            intent.putExtra("title", boardList[position].title)
-            intent.putExtra("content", boardList[position].content)
-            intent.putExtra("time", boardList[position].time)
+            // key 값 전달
+            intent.putExtra("key", boardKeyList[position])
             startActivity(intent)
         }
 
@@ -95,9 +106,12 @@ class TalkFragment : Fragment() {
                 boardList.clear()
 
                 for (data in dataSnapshot.children) {
+
+                    boardKeyList.add(data.key.toString())
                     boardList.add(data.getValue(BoardModel::class.java)!!)
                 }
                 // 데이터 순서 변경 -> 마지막 입력한 데이터가 맨 위로
+                boardKeyList.reverse()
                 boardList.reverse()
                 // 데이터 불러온 후 어댑터 동기화
                 boardLvAdapter.notifyDataSetChanged()

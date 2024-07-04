@@ -99,8 +99,11 @@ class ContentsActivity : AppCompatActivity() {
                         for (data in type.children) {
                             val item = data.getValue(ContentsModel::class.java)
                             items.add(item!!)
-//                            items.shuffle()
                             itemKeyList.add(data.key.toString())
+
+                            // 데이터 순서 변경
+                            items.reverse()
+                            itemKeyList.reverse()
                         }
                     }
                     // all을 제외한 나머지 카테고리
