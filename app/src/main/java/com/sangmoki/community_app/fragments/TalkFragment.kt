@@ -14,6 +14,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.sangmoki.community_app.R
 import com.sangmoki.community_app.adapter.BoardLvAdapter
+import com.sangmoki.community_app.board.BoardDetailActivity
 import com.sangmoki.community_app.board.BoardWriteActivity
 import com.sangmoki.community_app.databinding.FragmentTalkBinding
 import com.sangmoki.community_app.model.BoardModel
@@ -46,8 +47,17 @@ class TalkFragment : Fragment() {
         boardLvAdapter = BoardLvAdapter(boardList)
         binding.boardListView.adapter = boardLvAdapter
 
+        // 작성 버튼 클릭 시 게시글 작성 페이지로 이동
         binding.writeBtn.setOnClickListener {
             val intent = Intent(context, BoardWriteActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.boardListView.setOnItemClickListener { parent, view, position, id ->
+            val intent = Intent(context, BoardDetailActivity::class.java)
+            intent.putExtra("title", boardList[position].title)
+            intent.putExtra("content", boardList[position].content)
+            intent.putExtra("time", boardList[position].time)
             startActivity(intent)
         }
 
@@ -80,6 +90,9 @@ class TalkFragment : Fragment() {
     private fun getFBBoardData() {
         val postListener = object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                // 데이터가 변경될 때 초기화 -> 새로 동기화 시킨다.
+                boardList.clear()
 
                 for (data in dataSnapshot.children) {
                     boardList.add(data.getValue(BoardModel::class.java)!!)
