@@ -97,6 +97,8 @@ class TalkFragment : Fragment() {
                 for (data in dataSnapshot.children) {
                     boardList.add(data.getValue(BoardModel::class.java)!!)
                 }
+                // 데이터 순서 변경 -> 마지막 입력한 데이터가 맨 위로
+                boardList.reverse()
                 // 데이터 불러온 후 어댑터 동기화
                 boardLvAdapter.notifyDataSetChanged()
             }
