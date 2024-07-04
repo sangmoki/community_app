@@ -1,6 +1,9 @@
 package com.sangmoki.community_app.board
 
+import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
+import android.provider.MediaStore.Images.Media
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -52,5 +55,21 @@ class BoardWriteActivity : AppCompatActivity() {
             finish()
         }
 
+        // + 버튼 클릭 시 이벤트
+        binding.imgBtn.setOnClickListener {
+            // 이미지 업로드
+            val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
+            startActivityForResult(gallery, 100)
+        }
+    }
+
+    // 이벤트 결과 처리
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        // 만약 resultCode가 OK거나 requestCode가 100이면 성공적으로 이루어지면 이미지 영역에 이미지를 설정
+        if (resultCode == RESULT_OK && requestCode == 100) {
+            binding.imgBtn.setImageURI(data?.data)
+        }
     }
 }
