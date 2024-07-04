@@ -33,6 +33,8 @@ class BoardWriteActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     // Firebase storage 참조 객체 선언
     private val storage = Firebase.storage
+    // 이미지 업로드 여부
+    private var isImageUpload = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,8 +62,8 @@ class BoardWriteActivity : AppCompatActivity() {
             // 게시글 작성 완료
             Toast.makeText(this, "게시글 작성 완료", Toast.LENGTH_SHORT).show()
 
-            // 파일 서버에 이미지 업로드
-            imageUpload(key)
+            // 이미지가 업로드 되었으면 업로드 하고 아니라면 실행하지 않는다.
+            if (isImageUpload) imageUpload(key)
 
             // 게시판 목록으로 이동
             finish()
@@ -72,6 +74,7 @@ class BoardWriteActivity : AppCompatActivity() {
             // 이미지 업로드
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
             startActivityForResult(gallery, 100)
+            isImageUpload = true
         }
     }
 

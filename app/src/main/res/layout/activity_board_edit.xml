@@ -8,12 +8,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".board.BoardWriteActivity">
+        tools:context=".board.BoardEditActivity">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:ignore="UselessParent">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:orientation="vertical"
@@ -28,7 +27,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="글쓰기 페이지" />
+                        android:text="수정 페이지" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -37,7 +36,7 @@
                     android:background="@color/black" />
 
                 <EditText
-                    android:id="@+id/writeTitle"
+                    android:id="@+id/title"
                     android:layout_margin="20dp"
                     android:hint="제목을 입력해주세요"
                     android:background="@android:color/transparent"
@@ -52,7 +51,7 @@
                     android:background="@color/black" />
 
                 <EditText
-                    android:id="@+id/writeContent"
+                    android:id="@+id/content"
                     android:layout_margin="25dp"
                     android:hint="내용을 입력해주세요"
                     android:background="@android:color/transparent"
@@ -67,7 +66,7 @@
                     android:background="@color/black" />
 
                 <ImageView
-                    android:id="@+id/imgBtn"
+                    android:id="@+id/image"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="50dp"
@@ -81,7 +80,7 @@
                     android:layout_marginTop="70dp"
                     android:layout_marginRight="20dp"
                     android:background="@drawable/radious_yellow"
-                    android:text="저장" />
+                    android:text="수정" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
