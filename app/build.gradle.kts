@@ -53,6 +53,8 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx")
     // firebase storage
     implementation("com.google.firebase:firebase-storage")
+    // firebase storage ui
+    implementation ("com.firebaseui:firebase-ui-storage:7.2.0")
     // glide
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
