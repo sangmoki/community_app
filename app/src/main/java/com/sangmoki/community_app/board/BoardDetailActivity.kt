@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
 import com.google.firebase.database.DataSnapshot
@@ -106,10 +107,11 @@ class BoardDetailActivity : AppCompatActivity() {
                 val myUid = FBAuth.getUid()
                 val writerUid = data?.uid
 
+                // 작성자와 동일한 UID인 경우 게시판 수정 가능하게 Visible 설정
                 if (myUid.equals(writerUid)) {
-                    binding.settingBtn.visibility = Button.GONE
+                    binding.settingBtn.isVisible = true
                 } else {
-                    binding.settingBtn.visibility = Button.VISIBLE
+                    binding.settingBtn.isVisible = false
                 }
             }
 
