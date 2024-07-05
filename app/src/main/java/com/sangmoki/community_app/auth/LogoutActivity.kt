@@ -44,7 +44,7 @@ class LogoutActivity : AppCompatActivity() {
             ).show()
             
             // 로그아웃이 완료 된 후 로그인 화면으로 이동
-             val intent = Intent(this, IntroActivity::class.java)
+            val intent = Intent(this, IntroActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
              startActivity(intent)
              finish()
