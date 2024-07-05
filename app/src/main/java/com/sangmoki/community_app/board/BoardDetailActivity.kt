@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import com.sangmoki.community_app.R
+import com.sangmoki.community_app.adapter.CommentLvAdapter
 import com.sangmoki.community_app.databinding.ActivityBoardDetailBinding
 import com.sangmoki.community_app.model.BoardModel
 import com.sangmoki.community_app.model.CommentModel
@@ -28,6 +29,11 @@ class BoardDetailActivity : AppCompatActivity() {
 
     // 바인딩 객체 생성
     private lateinit var binding: ActivityBoardDetailBinding
+
+    // 댓글 목록 객체 생성
+    private val commentList = mutableListOf<CommentModel>()
+
+    private lateinit var commentAdapter : CommentLvAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,12 +66,17 @@ class BoardDetailActivity : AppCompatActivity() {
         getBoardDetailData(key)
         // 이미지 조회 함수 호출
         getImageData(key)
-        
+        // 댓글 조회 함수 호출
+        getCommentData(key)
+
         // 댓글 작성 버튼 클릭 이벤트
         binding.commentBtn.setOnClickListener {
             insertComment(key)
         }
 
+        // 댓글 어댑터 연결
+        commentAdapter = CommentLvAdapter(commentList)
+        binding.commentListView.adapter = commentAdapter
     }
     
     // 댓글 작성 함수
@@ -74,13 +85,36 @@ class BoardDetailActivity : AppCompatActivity() {
         val comment = binding.comment.text.toString()
 
         // board key 값 하위에 commentkey 값으로 댓글 하나씩 생성
-        FBRef.boardRef
+        FBRef.commentRef
             .child(key)
             .push()
             .setValue(CommentModel(comment, Global.getTime()))
 
         Toast.makeText(this, "댓글이 작성되었습니다.", Toast.LENGTH_SHORT).show()
         binding.comment.setText("")
+    }
+
+    // 댓글 조회 함수
+    private fun getCommentData(key: String) {
+        val postListener = object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                // 데이터가 변경될 때 초기화 -> 새로 동기화 시킨다.
+                commentList.clear()
+
+                for (data in dataSnapshot.children) {
+                    val item = data.getValue(CommentModel::class.java)
+                    commentList.add(item!!)
+                }
+                commentList.reverse()
+                // 어댑터 갱신
+                commentAdapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+            }
+        }
+        FBRef.commentRef.child(key).addValueEventListener(postListener)
     }
 
     // 다이얼로그 띄우는 함수
