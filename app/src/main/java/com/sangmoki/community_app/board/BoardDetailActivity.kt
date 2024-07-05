@@ -18,6 +18,7 @@ import com.google.firebase.storage.ktx.storage
 import com.sangmoki.community_app.R
 import com.sangmoki.community_app.databinding.ActivityBoardDetailBinding
 import com.sangmoki.community_app.model.BoardModel
+import com.sangmoki.community_app.util.FBAuth
 import com.sangmoki.community_app.util.FBRef
 
 class BoardDetailActivity : AppCompatActivity() {
@@ -102,6 +103,14 @@ class BoardDetailActivity : AppCompatActivity() {
                 binding.content.text = data?.content
                 binding.time.text = data?.time
 
+                val myUid = FBAuth.getUid()
+                val writerUid = data?.uid
+
+                if (myUid.equals(writerUid)) {
+                    binding.settingBtn.visibility = Button.GONE
+                } else {
+                    binding.settingBtn.visibility = Button.VISIBLE
+                }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
