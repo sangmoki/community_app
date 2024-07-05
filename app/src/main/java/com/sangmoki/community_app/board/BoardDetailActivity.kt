@@ -66,7 +66,7 @@ class BoardDetailActivity : AppCompatActivity() {
             .setView(mDialogView)
             .setTitle("게시글 수정/삭제")
 
-        val alertDialog = mBuilder.show()
+        mBuilder.show()
 
         // 수정 버튼 클릭 이벤트
         mDialogView.findViewById<Button>(R.id.fixBtn)?.setOnClickListener {
@@ -75,6 +75,8 @@ class BoardDetailActivity : AppCompatActivity() {
             val intent = Intent(this, BoardEditActivity::class.java)
             intent.putExtra("key", key)
             startActivity(intent)
+
+            finish()
         }
 
         // 삭제 버튼 클릭 이벤트

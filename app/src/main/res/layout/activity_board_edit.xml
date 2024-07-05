@@ -73,7 +73,7 @@
                     android:src="@drawable/plusbtn" />
 
                 <Button
-                    android:id="@+id/writeBtn"
+                    android:id="@+id/editBtn"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
