@@ -132,7 +132,8 @@ class BoardDetailActivity : AppCompatActivity() {
                     .load(tast.result)
                     .into(image)
             } else {
-                Toast.makeText(this, "이미지를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show()
+                // 이미지가 없으면 이미지 영역 안보이게 설정
+                binding.image.isVisible = false
             }
         }
     }

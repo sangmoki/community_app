@@ -92,8 +92,6 @@ class BoardEditActivity : AppCompatActivity() {
                 Glide.with(this)
                     .load(tast.result)
                     .into(image)
-            } else {
-                Toast.makeText(this, "이미지를 불러오지 못했습니다.", Toast.LENGTH_SHORT).show()
             }
         }
     }
