@@ -3,6 +3,7 @@ package com.sangmoki.community_app
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -10,7 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.sangmoki.community_app.auth.IntroActivity
+import com.sangmoki.community_app.auth.LogoutActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +28,13 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         val currentUser = auth.currentUser
+
+        // 메뉴 버튼 클릭 이벤트
+        findViewById<ImageView>(R.id.menuBtn).setOnClickListener {
+            // 로그아웃 액티비티로 이동
+            val intent = Intent(this, LogoutActivity::class.java)
+            startActivity(intent)
+        }
 
         // 로그아웃 버튼 클릭 이벤트
         // findViewById<Button>(R.id.logoutBtn).setOnClickListener {
