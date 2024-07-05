@@ -19,8 +19,10 @@ import com.google.firebase.storage.ktx.storage
 import com.sangmoki.community_app.R
 import com.sangmoki.community_app.databinding.ActivityBoardDetailBinding
 import com.sangmoki.community_app.model.BoardModel
+import com.sangmoki.community_app.model.CommentModel
 import com.sangmoki.community_app.util.FBAuth
 import com.sangmoki.community_app.util.FBRef
+import com.sangmoki.community_app.util.Global
 
 class BoardDetailActivity : AppCompatActivity() {
 
@@ -58,7 +60,27 @@ class BoardDetailActivity : AppCompatActivity() {
         getBoardDetailData(key)
         // 이미지 조회 함수 호출
         getImageData(key)
+        
+        // 댓글 작성 버튼 클릭 이벤트
+        binding.commentBtn.setOnClickListener {
+            insertComment(key)
+        }
 
+    }
+    
+    // 댓글 작성 함수
+    private fun insertComment(key: String) {
+
+        val comment = binding.comment.text.toString()
+
+        // board key 값 하위에 commentkey 값으로 댓글 하나씩 생성
+        FBRef.boardRef
+            .child(key)
+            .push()
+            .setValue(CommentModel(comment, Global.getTime()))
+
+        Toast.makeText(this, "댓글이 작성되었습니다.", Toast.LENGTH_SHORT).show()
+        binding.comment.setText("")
     }
 
     // 다이얼로그 띄우는 함수
