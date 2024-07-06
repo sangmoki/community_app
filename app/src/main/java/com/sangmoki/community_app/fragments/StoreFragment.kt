@@ -28,7 +28,7 @@ class StoreFragment : Fragment() {
         // DataBinding 설정
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_store, container, false)
 
-        // 스토어 버튼 클릭 시 웹뷰 추가
+        // 스토어 버튼 클릭 시 웹뷰 추가 -> 임시로 벨로그로 이동
         val webView: WebView = binding.storeWebview
         webView.loadUrl("https://velog.io/@sangmoki/posts")
 
