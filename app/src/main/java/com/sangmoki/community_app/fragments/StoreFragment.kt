@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.webkit.WebView
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import com.sangmoki.community_app.R
@@ -26,6 +27,10 @@ class StoreFragment : Fragment() {
 
         // DataBinding 설정
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_store, container, false)
+
+        // 스토어 버튼 클릭 시 웹뷰 추가
+        val webView: WebView = binding.storeWebview
+        webView.loadUrl("https://velog.io/@sangmoki/posts")
 
         // Home 버튼 클릭 이벤트
         binding.homeTap.setOnClickListener {
